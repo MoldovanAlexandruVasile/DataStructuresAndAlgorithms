@@ -1,0 +1,11 @@
+﻿  main.cpp
+  Generating Code...
+  Compiling...
+  UI.cpp
+  MultiMap.cpp
+  Generating Code...
+e:\programe\visual studio\programe\sda\sda\dynamicvector.h(77): warning C4172: returning address of local variable or temporary
+  Skipping... (no relevant changes detected)
+  Seat.cpp
+  SDA.vcxproj -> E:\Programe\Visual Studio\Programe\SDA\Debug\SDA.exe
+  SDA.vcxproj -> E:\Programe\Visual Studio\Programe\SDA\Debug\SDA.pdb (Partial PDB)
