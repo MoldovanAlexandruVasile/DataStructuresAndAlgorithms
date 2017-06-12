@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>seat.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#pragma once
+#include &lt;string&gt;
+
+class Seat
+{
+private:
+	int key; //ID of the table
+	std::string name; //The name of the guest
+
+public:
+	Seat(int key, std::string name); //Guest constructor
+
+	Seat(); //default constructor
+
+	Seat(const Seat&amp; other); //Copy constructor
+
+	~Seat(); //destructor
+
+	bool operator == (int other); //override of the operator ==. Compare 2 integers
+	bool operator == (Seat other); //override of the operator ==. Compare two variables of type Seat
+
+<span style = "background-color:#dfd">	int getKey() { return key; }		//Return the key of the current element
+	std::string getName() { return name; }	//Return the name of the current element</span>
+
+<span style = "background-color:#dfd">	void setKey(int key) { this-&gt;key = key; }	//Sets the key of a TElement</span>
+	void setName(std::string name) { this-&gt;name = name; }	//Sets the name of a TElement
+};</pre>
+	</body>
+</html>

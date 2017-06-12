@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>seat.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "Seat.h"
+
+Seat::Seat(int key, std::string name)
+<span style = "background-color:#dfd">{
+	this-&gt;key = key;
+	this-&gt;name = name;
+}</span>
+
+Seat::Seat()
+<span style = "background-color:#dfd">{
+	key = -1;
+	name = "";
+}</span>
+
+Seat::Seat(const Seat&amp; other)
+<span style = "background-color:#dfd">{
+	key = other.key;
+	name = other.name;
+}</span>
+
+<span style = "background-color:#dfd">Seat::~Seat() {}</span>
+
+bool Seat::operator==(int other)
+<span style = "background-color:#dfd">{
+	return key == other;
+}</span>
+
+bool Seat::operator==(Seat other)
+<span style = "background-color:#dfd">{
+	return key == other.key &amp;&amp; name == other.name;
+}</span></pre>
+	</body>
+</html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>ui.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "UI.h"
+
+UI::UI()
+<span style = "background-color:#fdd">{
+	mm = MultiMap{ 15 };
+}</span>
+
+void UI::printMenu()
+<span style = "background-color:#fdd">{
+	std::cout &lt;&lt; "\n\t\t  ~MENU~ \n" &lt;&lt; std::endl;
+	std::cout &lt;&lt; "\t 1. Add a guest to a table." &lt;&lt; std::endl;
+	std::cout &lt;&lt; "\t 2. Remove a guest from a table." &lt;&lt; std::endl;
+	std::cout &lt;&lt; "\t 3. Display the guests from a given table." &lt;&lt; std::endl;
+	std::cout &lt;&lt; "\t 4. Search for a guest." &lt;&lt; std::endl;
+	std::cout &lt;&lt; "\t 5. Show all tables." &lt;&lt; std::endl;
+	std::cout &lt;&lt; "\t 0. Exit.\n" &lt;&lt; std::endl;
+}</span>
+
+void UI::init()
+<span style = "background-color:#fdd">{
+	mm.add(4, "Andreas Dragutin");
+	mm.add(1, "Gleb Valerian");
+	mm.add(2, "Jonatas Yesha'yahu");
+	mm.add(4, "Eudocia Cassia");
+	mm.add(8, "Freida Yakup");
+	mm.add(3, "Laura Ina");
+	mm.add(1, "Victoria Inna");
+	mm.add(1, "Detlef Britt");
+	mm.add(4, "Patrizio Wigheard");
+	mm.add(9, "Fabiana Eva");
+}</span>
+
+void UI::run()
+<span style = "background-color:#fdd">{
+	init();</span>
+
+<span style = "background-color:#fdd">	int command = -1;</span>
+
+<span style = "background-color:#fdd">	while (command != 0)</span>
+	{
+<span style = "background-color:#fdd">		std::cout &lt;&lt; std::endl;
+		printMenu();
+		std::cout &lt;&lt; "\n\tYour commnad: ";
+		std::cin &gt;&gt; command;</span>
+
+<span style = "background-color:#fdd">		if (command == 0) return;</span>
+
+<span style = "background-color:#fdd">		if (command == 1)</span>
+		{
+			int table;
+<span style = "background-color:#fdd">			std::cout &lt;&lt; "\n\tTable ID: ";
+			std::cin.ignore();
+			std::cin &gt;&gt; table;</span>
+
+<span style = "background-color:#fdd">			std::cout &lt;&lt; "\tGuest name: ";
+			std::string name;
+			getchar();
+			getline(std::cin, name);</span>
+
+<span style = "background-color:#fdd">			if (mm.add(table, name) == 0)
+				std::cout &lt;&lt; "\n\t\t Guest has been added !" &lt;&lt; std::endl;
+			else std::cout &lt;&lt; "\n\t\t Guest couldn't be added !" &lt;&lt; std::endl;
+		}</span>
+
+<span style = "background-color:#fdd">		else if (command == 2)</span>
+		{
+			int table;
+<span style = "background-color:#fdd">			std::cout &lt;&lt; "\n\tTable ID: ";
+			std::cin.ignore();
+			std::cin &gt;&gt; table;</span>
+
+<span style = "background-color:#fdd">			std::string name;
+			std::cout &lt;&lt; "\tGuest name: ";
+			getchar();
+			getline(std::cin, name);</span>
+
+<span style = "background-color:#fdd">			if (mm.remove(table, name) == 0)
+				std::cout &lt;&lt; "\n\t\t Guest has been deleted !" &lt;&lt; std::endl;
+			else std::cout &lt;&lt; "\n\t\t Guest was not found to delete him !" &lt;&lt; std::endl;
+		}</span>
+
+<span style = "background-color:#fdd">		else if (command == 3)</span>
+		{
+			int table;
+<span style = "background-color:#fdd">			std::cout &lt;&lt; "\n \tTable ID: ";
+			std::cin.ignore();
+			std::cin &gt;&gt; table;</span>
+
+<span style = "background-color:#fdd">			int k = 0;</span>
+
+<span style = "background-color:#fdd">			MultiMap::Iterator aux{ mm };
+			std::cout &lt;&lt; std::endl;
+			while (aux.valid())</span>
+			{
+<span style = "background-color:#fdd">				if (aux.getCurrent().getKey() == table)</span>
+				{
+<span style = "background-color:#fdd">					std::cout &lt;&lt; "\tName: " &lt;&lt; aux.getCurrent().getName() &lt;&lt; "." &lt;&lt; std::endl;
+					k++;</span>
+				}
+<span style = "background-color:#fdd">				aux.next();
+			}
+			if (k == 0) std::cout &lt;&lt; "\tThe coresponding table does not exist !" &lt;&lt; std::endl;
+		}
+		else if (command == 4)</span>
+		{
+<span style = "background-color:#fdd">			bool sem = false;
+			std::cout &lt;&lt; "\n \tGuest name: ";
+			std::string name;
+			getchar();
+			getline(std::cin, name);</span>
+
+<span style = "background-color:#fdd">			MultiMap::Iterator aux{ mm };
+			std::cout &lt;&lt; std::endl;
+			while (aux.valid())</span>
+			{
+<span style = "background-color:#fdd">				if (aux.getCurrent().getName() == name)</span>
+				{
+<span style = "background-color:#fdd">					std::cout &lt;&lt; "\t\tThe guest is at table " &lt;&lt; aux.getCurrent().getKey() &lt;&lt; "." &lt;&lt; std::endl;
+					sem = true;</span>
+				}
+<span style = "background-color:#fdd">				aux.next();
+			}
+			if (sem == false)
+				std::cout &lt;&lt; "\t\tThe guest couldn't been found !" &lt;&lt; std::endl;
+		}
+		else if (command == 5)</span>
+		{
+<span style = "background-color:#fdd">			std::cout &lt;&lt; std::endl;
+			MultiMap::Iterator aux{ mm };
+			std::cout &lt;&lt; std::endl;
+			while (aux.valid())</span>
+			{
+<span style = "background-color:#fdd">				std::cout &lt;&lt; "\tTable: " &lt;&lt; aux.getCurrent().getKey() &lt;&lt; "           Name: " &lt;&lt; aux.getCurrent().getName() &lt;&lt; std::endl;
+				aux.next();
+			}
+		}
+		else std::cout &lt;&lt; "\n\tInvalid command !" &lt;&lt; std::endl;
+	}
+}</span></pre>
+	</body>
+</html>

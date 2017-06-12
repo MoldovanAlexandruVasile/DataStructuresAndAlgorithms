@@ -12,7 +12,8 @@ void UI::printMenu()
 	std::cout << "\t 2. Remove a guest from a table." << std::endl;
 	std::cout << "\t 3. Display the guests from a given table." << std::endl;
 	std::cout << "\t 4. Search for a guest." << std::endl;
-	std::cout << "\t 5. Show all tables.\n" << std::endl;
+	std::cout << "\t 5. Show all tables." << std::endl;
+	std::cout << "\t 0. Exit.\n" << std::endl;
 }
 
 void UI::init()
@@ -37,9 +38,12 @@ void UI::run()
 
 	while (command != 0)
 	{
+		std::cout << std::endl;
 		printMenu();
 		std::cout << "\n\tYour commnad: ";
 		std::cin >> command;
+
+		if (command == 0) return;
 
 		if (command == 1)
 		{
@@ -54,8 +58,8 @@ void UI::run()
 			getline(std::cin, name);
 
 			if (mm.add(table, name) == 0)
-				std::cout << "\n\t Guest has been added !" << std::endl;
-			else std::cout << "\n\t Guest couldn't be added !" << std::endl;
+				std::cout << "\n\t\t Guest has been added !" << std::endl;
+			else std::cout << "\n\t\t Guest couldn't be added !" << std::endl;
 		}
 
 		else if (command == 2)
@@ -72,7 +76,7 @@ void UI::run()
 
 			if (mm.remove(table, name) == 0)
 				std::cout << "\n\t\t Guest has been deleted !" << std::endl;
-			else std::cout << "\n\t\t Guest couldn't be deleted !" << std::endl;
+			else std::cout << "\n\t\t Guest was not found for deleting !" << std::endl;
 		}
 
 		else if (command == 3)
@@ -82,14 +86,20 @@ void UI::run()
 			std::cin.ignore();
 			std::cin >> table;
 
+			int k = 0;
+
 			MultiMap::Iterator aux{ mm };
 			std::cout << std::endl;
 			while (aux.valid())
 			{
 				if (aux.getCurrent().getKey() == table)
+				{
 					std::cout << "\tName: " << aux.getCurrent().getName() << "." << std::endl;
+					k++;
+				}
 				aux.next();
 			}
+			if (k == 0) std::cout << "\tThe coresponding table does not exist !" << std::endl;
 		}
 		else if (command == 4)
 		{
@@ -105,13 +115,13 @@ void UI::run()
 			{
 				if (aux.getCurrent().getName() == name)
 				{
-					std::cout << "\tThe guest is at table " << aux.getCurrent().getKey() << "." << std::endl;
+					std::cout << "\t\tThe guest is at table " << aux.getCurrent().getKey() << "." << std::endl;
 					sem = true;
 				}
 				aux.next();
 			}
 			if (sem == false)
-				std::cout << "\n\t\tThe guest couldn't been found !" << std::endl;
+				std::cout << "\t\tThe guest couldn't been found !" << std::endl;
 		}
 		else if (command == 5)
 		{
@@ -124,5 +134,6 @@ void UI::run()
 				aux.next();
 			}
 		}
+		else std::cout << "\n\tInvalid command !" << std::endl;
 	}
 }

@@ -4,13 +4,13 @@
 
 int main()
 {
-	UI ui{};
-
 	tests();
+
+	UI ui{};
 
 	ui.run();
 	
 	std::cout << std::endl;
-	system("pause");
+
 	return 0;
 }

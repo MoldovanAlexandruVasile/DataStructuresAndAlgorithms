@@ -53,6 +53,7 @@ int MultiMap::search(int key, std::string name)
 
 	if (dv[pos] == s)
 		return pos;
+
 	return -1;
 }
 

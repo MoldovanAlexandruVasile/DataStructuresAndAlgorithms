@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>tests.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#pragma once
+#include "MultiMap.h"
+#include "DynamicVector.h"
+#include "Seat.h"
+#include &lt;assert.h&gt;
+
+
+void tests()
+<span style = "background-color:#dfd">{
+	DynamicVector&lt;Seat&gt; v;
+	DynamicVector&lt;Seat&gt; v1;
+	v = v1;</span>
+	
+<span style = "background-color:#dfd">	assert(v.getSize() == 0);
+	assert(v[15].getKey() == -1);
+	assert(v[0].getName() == "");
+	MultiMap mm{3};
+	assert(mm.search(1, "Laura Ina") == -1);
+	assert(mm.add(1, "Laura Ina") == 0);			//Add a new guests
+	assert(mm.add(1, "Mariana") == 0);			//Add another guest at table 1
+	assert(mm.add(2, "Gigel") == 0);				//Add another
+	assert(mm.add(3, "Ana") == 0);
+	assert(mm.search(1, "Laura Ina") != -1);		//Search the guest. And it find it
+	assert(mm.search(1, "Mariana") != -1);
+	assert(mm.remove(1, "Laura Ina") == 0);		//Removes the guest
+	assert(mm.search(1, "Laura Ina") == -1);		//Can't find the guest
+	assert(mm.remove(1, "Laura Ina") == -1);		//Can't delete an inexistent guest
+	assert(mm.add(4, "Gigel") == 0);
+	MultiMap mm2{ 2 };
+	mm2 = mm;
+	mm.resize();
+}</span></pre>
+	</body>
+</html>

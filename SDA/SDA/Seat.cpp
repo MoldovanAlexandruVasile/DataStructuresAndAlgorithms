@@ -18,9 +18,7 @@ Seat::Seat(const Seat& other)
 	name = other.name;
 }
 
-Seat::~Seat()
-{
-}
+Seat::~Seat() {}
 
 bool Seat::operator==(int other)
 {

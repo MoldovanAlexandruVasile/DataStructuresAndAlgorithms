@@ -34,7 +34,6 @@ public:
 	INPUT:  k - Table number
      	    name - Guest name 
 	OUTPUT: 0 - Added succeded
-			-1 - Added failed
 	*/
 	int add(int key, std::string name);
 

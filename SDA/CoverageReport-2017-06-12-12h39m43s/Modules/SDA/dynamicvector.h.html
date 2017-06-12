@@ -1,0 +1,110 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>dynamicvector.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#pragma once
+
+template&lt;class TElement&gt;
+class DynamicVector
+{
+private:
+	TElement* elems;
+	int size;
+	int capacity;
+
+public:
+
+	//Constructor
+	DynamicVector(int capacity = 10);
+
+	//Creates a copy of the Array
+	DynamicVector(const DynamicVector&amp; v);
+
+	//Destructor
+	~DynamicVector();
+
+	//Returns the size of the dynamic vector.
+	int getSize() const;
+
+	//Create the operator "="
+	DynamicVector&amp; operator=(DynamicVector v)
+<span style = "background-color:#dfd">	{
+		if (this == &amp;v)</span>
+<span style = "background-color:#fdd">			return *this;</span>
+<span style = "background-color:#dfd">		this-&gt;size = v.size;
+		this-&gt;capacity = v.capacity;
+		delete[] this-&gt;elems;
+		this-&gt;elems = new TElement[this-&gt;capacity];
+		for (int i = 0; i &lt; this-&gt;size; i++)
+			this-&gt;elems[i] = v.elems[i];
+		return *this;
+	}</span>
+
+	TElement&amp; operator[](int pos);
+
+private:
+	//Resizes the vector.
+	void resize(double factor = 1.5);
+};
+
+
+template&lt;class TElement&gt;
+DynamicVector&lt;TElement&gt;::DynamicVector(int capacity)
+<span style = "background-color:#dfd">{
+	this-&gt;size = 0;
+	this-&gt;capacity = capacity;
+	this-&gt;elems = new TElement[capacity];
+}</span>
+
+
+template&lt;class TElement&gt;
+DynamicVector&lt;TElement&gt;::DynamicVector(const DynamicVector&lt;TElement&gt;&amp; v)
+<span style = "background-color:#dfd">{
+	this-&gt;size = v.size;
+	this-&gt;capacity = v.capacity;
+	this-&gt;elems = new TElement[this-&gt;capacity];
+	for (int i = 0; i &lt; this-&gt;size; i++)
+		this-&gt;elems[i] = v.elems[i];
+}</span>
+
+template&lt;class TElement&gt;
+DynamicVector&lt;TElement&gt;::~DynamicVector()
+<span style = "background-color:#dfd">{
+	delete[] this-&gt;elems;
+}</span>
+
+template&lt;class TElement&gt;
+inline TElement &amp; DynamicVector&lt;TElement&gt;::operator[](int pos)
+<span style = "background-color:#dfd">{
+	size = capacity;
+	if (pos &gt;= this-&gt;capacity)
+		return TElement();
+	return this-&gt;elems[pos];
+}</span>
+
+template&lt;class TElement&gt;
+void DynamicVector&lt;TElement&gt;::resize(double factor)
+{
+	this-&gt;capacity *= static_cast&lt;int&gt;(factor);
+	TElement* els = new TElement[this-&gt;capacity];
+	for (int i = 0; i &lt; this-&gt;size; i++)
+		els[i] = this-&gt;elems[i];
+	delete[] this-&gt;elems;
+	this-&gt;elems = els;
+
+}
+
+template&lt;class TElement&gt;
+int DynamicVector&lt;TElement&gt;::getSize() const
+<span style = "background-color:#dfd">{
+	return this-&gt;size;
+}</span></pre>
+	</body>
+</html>

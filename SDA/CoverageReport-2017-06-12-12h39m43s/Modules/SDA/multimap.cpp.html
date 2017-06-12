@@ -1,0 +1,125 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>multimap.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "MultiMap.h"
+
+int MultiMap::HashFunction(int k, int i)
+<span style = "background-color:#dfd">{
+	return ((k % m) + i) % m;
+}</span>
+
+MultiMap::~MultiMap()
+<span style = "background-color:#dfd">{
+}</span>
+
+int MultiMap::add(int key, std::string name)
+<span style = "background-color:#dfd">{
+	int i = 0;
+	int pos = HashFunction(key, i);
+	while (i &lt; this-&gt;m &amp;&amp; !(dv[pos] == -1))</span>
+	{
+<span style = "background-color:#dfd">		i++;
+		pos = HashFunction(key, i);
+	}
+	if (i == m)
+		resize();</span>
+
+<span style = "background-color:#dfd">	dv[pos] = Seat(key, name);</span>
+
+<span style = "background-color:#dfd">	return 0;
+}</span>
+
+int MultiMap::remove(int key, std::string name)
+<span style = "background-color:#dfd">{
+	int pos = this-&gt;search(key, name);
+	if (pos != -1)</span>
+	{
+<span style = "background-color:#dfd">		dv[pos].setKey(-2);
+		return 0;</span>
+	}
+<span style = "background-color:#dfd">	return -1;
+}</span>
+
+int MultiMap::search(int key, std::string name)
+<span style = "background-color:#dfd">{
+	Seat s(key, name);
+	int i = 0;
+	int pos = HashFunction(key, i);
+	while (i &lt; this-&gt;m &amp;&amp; !(dv[pos] == s) &amp;&amp; !(dv[pos] == -1) &amp;&amp; !(dv[pos] == -2))</span>
+	{
+<span style = "background-color:#dfd">		i++;
+		pos = HashFunction(key, i);
+	}</span>
+
+<span style = "background-color:#dfd">	if (i == m)</span>
+<span style = "background-color:#fdd">		return -1;</span>
+
+<span style = "background-color:#dfd">	if (dv[pos] == s)
+		return pos;</span>
+
+<span style = "background-color:#dfd">	return -1;
+}</span>
+
+
+void MultiMap::resize()
+<span style = "background-color:#dfd">{
+	DynamicVector&lt;Seat&gt; v{ int(m * 1.5) };
+	Iterator it{*this};
+	m = int(m * 1.5);
+	while(it.valid())</span>
+	{
+<span style = "background-color:#dfd">		Seat s = it.getCurrent();
+		int i = 0;
+		int pos = HashFunction(s.getKey(), i);
+		while (i &lt; this-&gt;m &amp;&amp; !(v[pos] == -1))</span>
+		{
+<span style = "background-color:#dfd">			i++;
+			pos = HashFunction(s.getKey(), i);
+		}
+		v[pos] = s;
+		it.next();
+	}</span>
+
+<span style = "background-color:#dfd">	dv = v;
+}</span>
+
+
+<span style = "background-color:#dfd">MultiMap::Iterator::Iterator(MultiMap&amp; mm):mm(mm)
+{
+	int i = 0;
+	while (i &lt; mm.m &amp;&amp; (mm.dv[i] == -1 || mm.dv[i] == -2))</span>
+<span style = "background-color:#fdd">		i++;</span>
+<span style = "background-color:#dfd">	pos = i;
+}</span>
+
+MultiMap::Iterator::~Iterator()
+<span style = "background-color:#dfd">{
+}</span>
+
+Seat MultiMap::Iterator::getCurrent()
+<span style = "background-color:#dfd">{
+	return mm.dv[pos];
+}</span>
+
+bool MultiMap::Iterator::valid()
+<span style = "background-color:#dfd">{
+	return pos &lt; mm.m &amp;&amp; pos &gt;= 0;
+}</span>
+
+void MultiMap::Iterator::next()
+<span style = "background-color:#dfd">{
+	int i = pos + 1;
+	while (i &lt; mm.m &amp;&amp; (mm.dv[i] == -1 || mm.dv[i] == -2))
+		i++;
+	pos = i;
+}</span></pre>
+	</body>
+</html>
